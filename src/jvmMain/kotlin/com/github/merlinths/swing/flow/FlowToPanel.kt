@@ -6,7 +6,11 @@ import javax.swing.JComponent
 
 context(CoroutineScope)
 fun Flow<JComponent>.asObservingPanel() =
-    ObservingPanel(
-        coroutineScope = this@CoroutineScope,
-        content = this@Flow
-    )
+    asObservingPanel(this@CoroutineScope)
+
+fun Flow<JComponent>.asObservingPanel(
+    scope: CoroutineScope
+) = ObservingPanel(
+    scope = scope,
+    content = this
+)

@@ -7,13 +7,13 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 
 class ObservingPanel(
-    coroutineScope: CoroutineScope,
+    scope: CoroutineScope,
     private val content: Flow<JComponent>
 ) : JPanel() {
     init {
         layout = GridLayout(0, 1)
 
-        coroutineScope.observeContent()
+        scope.observeContent()
     }
 
     private fun CoroutineScope.observeContent() =
