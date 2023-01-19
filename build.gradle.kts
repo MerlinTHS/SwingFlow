@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.merlinths"
-version = "1.0.0"
+version = "1.0.1"
 
 val coroutineVersion = "1.6.4"
 val kluentVersion = "1.72"
