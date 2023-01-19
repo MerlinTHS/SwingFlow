@@ -6,6 +6,7 @@ import org.amshove.kluent.`should be equal to`
 import kotlin.test.Test
 
 class SwingFlowTest {
+
     @Test
     fun `TextArea text changes`() = runTest {
         val code = MutableStateFlow("Hello")

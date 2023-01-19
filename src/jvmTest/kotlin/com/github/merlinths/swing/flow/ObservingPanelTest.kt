@@ -41,12 +41,11 @@ class ObservingPanelTest {
             components.shouldNotBeEmpty()
             components.first() `should be` initialContent
 
-
             currentContent.value = nextContent
             yieldMainThread()
 
             componentCount `should be equal to` 1
-            components.first()`should be` nextContent
+            components.first() `should be` nextContent
         }
     }
 }
