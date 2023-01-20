@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Interface to access lifecycle-bound [CoroutineScope].
  *
- * In the context of a [JComponent] you can configure [bindings] via [invokes].
+ * In the context of a [JComponent] you can configure [bind].
  *
  * @sample[ExampleEditor]
  */
@@ -18,9 +18,9 @@ interface SwingFlow : CoroutineScope {
         get() = Job() + Dispatchers.Default
 
     context (Type)
-    fun <Type> bindings(
+    fun <Type> bind(
         lifecycle: Lifecycle<Type>,
-        config: FlowConfiguration
+        config: SwingFlow.() -> Unit
     ) {
         lifecycle.register(
             onBind = {
@@ -35,12 +35,10 @@ interface SwingFlow : CoroutineScope {
     }
 }
 
-
-context (SwingFlow, JComponent)
-fun bindings(
-    lifecycle: Lifecycle<JComponent> = ParentLifecycle(),
-    config: FlowConfiguration
-) {
-    this@SwingFlow
-        .bindings(lifecycle, config)
-}
+fun <Type> swingFlow(
+    target: Type,
+    config: context (SwingFlow) Type.() -> Unit
+): Type =
+    target.apply {
+        config.invoke(object : SwingFlow{}, target)
+    }

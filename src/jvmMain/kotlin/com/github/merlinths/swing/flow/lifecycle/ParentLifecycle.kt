@@ -5,9 +5,9 @@ import java.awt.event.HierarchyEvent
 import java.awt.event.HierarchyEvent.PARENT_CHANGED
 import javax.swing.JComponent
 
-class ParentLifecycle : Lifecycle<JComponent> {
+class ParentLifecycle<Type: JComponent> : Lifecycle<Type> {
 
-    context (JComponent)
+    context (Type)
     override fun register(
         onBind: Runnable,
         onUnbind: Runnable
@@ -22,7 +22,7 @@ class ParentLifecycle : Lifecycle<JComponent> {
     private fun HierarchyEvent.isParentChange() =
         (changeFlags and PARENT_CHANGED.toLong()) != 0L
 
-    context (JComponent)
+    context (Type)
     private fun handleParentChange(
         newParent: Container,
         onBind: Runnable,
