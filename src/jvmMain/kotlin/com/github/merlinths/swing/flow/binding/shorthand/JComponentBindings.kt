@@ -2,21 +2,16 @@ package com.github.merlinths.swing.flow.binding.shorthand
 
 import com.github.merlinths.swing.flow.SwingFlow
 import com.github.merlinths.swing.flow.lifecycle.ParentLifecycle
+import kotlinx.coroutines.CoroutineScope
 import javax.swing.JComponent
 
 context (SwingFlow, Type)
 fun <Type: JComponent> bind(
-    config: SwingFlow.() -> Unit
+    init: suspend CoroutineScope.() -> Unit
 ) {
-    this@SwingFlow.bind(
-        lifecycle = ParentLifecycle(),
-        config
-    )
+    this@SwingFlow.bind(lifecycle = ParentLifecycle(), init)
 }
 
 infix fun <Type: JComponent> Type.binds(
-    config: context (SwingFlow) Type.() -> Unit
-) = binds(
-    lifecycle = ParentLifecycle(),
-    config
-)
+    init: context (CoroutineScope) Type.() -> Unit
+) = binds(lifecycle = ParentLifecycle(), init)

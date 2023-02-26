@@ -7,14 +7,14 @@ import javax.swing.JPanel
  * Executes [actions] with a receiver attached to a [JPanel],
  * to ensure the flow bindings are active.
  */
-internal inline fun JComponent.attachedScope(
-    actions: JComponent.() -> Unit
+internal inline fun <Type: JComponent> withAttached(
+    component: Type,
+    actions: Type.() -> Unit
 ) {
-    val parent = JPanel()
-        .apply {
-            add(this@attachedScope)
-        }
+    val parent = JPanel().apply {
+        add(component)
+    }
 
-    this.actions()
+    component.actions()
     parent.removeAll()
 }

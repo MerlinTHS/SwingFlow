@@ -1,7 +1,6 @@
 package com.github.merlinths.swing.flow
 
 import com.github.merlinths.swing.flow.lifecycle.Lifecycle
-import com.github.merlinths.swing.flow.lifecycle.ParentLifecycle
 import kotlinx.coroutines.*
 import javax.swing.JComponent
 import kotlin.coroutines.CoroutineContext
@@ -13,23 +12,25 @@ import kotlin.coroutines.CoroutineContext
  *
  * @sample[ExampleEditor]
  */
-interface SwingFlow : CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = Job() + Dispatchers.Default
+interface SwingFlow {
+    val swingScope: CoroutineScope
+        get() = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     context (Type)
     fun <Type> bind(
         lifecycle: Lifecycle<Type>,
-        config: SwingFlow.() -> Unit
+        init: suspend CoroutineScope.() -> Unit
     ) {
+        var job: Job? = null
+
         lifecycle.register(
             onBind = {
-                launch(start = CoroutineStart.UNDISPATCHED) {
-                    config()
+                job = swingScope.launch(start = CoroutineStart.UNDISPATCHED) {
+                    init()
                 }
             },
             onUnbind = {
-                coroutineContext.cancelChildren()
+                job?.cancelChildren()
             }
         )
     }
@@ -37,8 +38,8 @@ interface SwingFlow : CoroutineScope {
 
 fun <Type> swingFlow(
     target: Type,
-    config: context (SwingFlow) Type.() -> Unit
+    init: context (SwingFlow) Type.() -> Unit
 ): Type =
     target.apply {
-        config.invoke(object : SwingFlow{}, target)
+        init(object : SwingFlow{}, target)
     }

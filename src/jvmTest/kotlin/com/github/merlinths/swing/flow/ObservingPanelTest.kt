@@ -9,33 +9,31 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import kotlin.test.Test
-
 @OptIn(ExperimentalCoroutinesApi::class)
 class ObservingPanelTest {
-    @Test
-    fun `Constant content`() = runTest {
-        val content = JPanel()
-        val panel = flowOf(content).observeAsPanel()
 
-        panel.attachedScope {
+    @Test
+    fun `Initial content is set`() = runTest {
+        val content = JPanel()
+        val panel = flowOf(content).observeInPanel()
+
+        withAttached(panel) {
             yieldMainThread()
 
-            with(panel) {
-                componentCount `should be equal to`  1
-                components.first() `should be` content
-            }
+            componentCount `should be equal to` 1
+            components.first() `should be` content
         }
     }
 
     @Test
-    fun `Changing content`() = runTest {
+    fun `Content changes`() = runTest {
         val initialContent = JPanel()
         val nextContent = JLabel()
 
         val currentContent = MutableStateFlow<JComponent>(initialContent)
-        val panel = currentContent.observeAsPanel()
+        val panel = currentContent.observeInPanel()
 
-        panel.attachedScope {
+        withAttached(panel) {
             yieldMainThread()
 
             components.shouldNotBeEmpty()

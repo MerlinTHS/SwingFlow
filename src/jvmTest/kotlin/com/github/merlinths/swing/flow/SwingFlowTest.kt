@@ -1,24 +1,31 @@
 package com.github.merlinths.swing.flow
 
+import com.github.merlinths.swing.flow.binding.invoke
+import com.github.merlinths.swing.flow.binding.shorthand.binds
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.`should be equal to`
+import javax.swing.JLabel
 import kotlin.test.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SwingFlowTest {
-
     @Test
-    fun `TextArea text changes`() = runTest {
+    fun `JLabel text changes`() = runTest {
         val code = MutableStateFlow("Hello")
-        val editor = ExampleEditor(code)
+        val label = JLabel() binds {
+            ::text::
+            set { code }
+        }
 
-        editor.attachedScope {
+        withAttached(label) {
             yieldMainThread()
-            editor.textArea.text `should be equal to` "Hello"
+            text `should be equal to` "Hello"
 
             code.value = "Bye"
             yieldMainThread()
-            editor.textArea.text `should be equal to` "Bye"
+            text `should be equal to` "Bye"
         }
     }
 }
