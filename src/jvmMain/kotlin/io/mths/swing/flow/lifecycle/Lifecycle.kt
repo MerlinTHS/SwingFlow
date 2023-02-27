@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow.lifecycle
+package io.mths.swing.flow.lifecycle
 
 interface Lifecycle<Type> {
     context (Type)

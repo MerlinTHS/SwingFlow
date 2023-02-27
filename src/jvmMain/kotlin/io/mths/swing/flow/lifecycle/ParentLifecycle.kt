@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow.lifecycle
+package io.mths.swing.flow.lifecycle
 
 import java.awt.Container
 import java.awt.event.HierarchyEvent

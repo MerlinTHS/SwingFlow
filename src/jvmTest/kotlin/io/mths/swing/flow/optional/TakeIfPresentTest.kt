@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow.optional
+package io.mths.swing.flow.optional
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

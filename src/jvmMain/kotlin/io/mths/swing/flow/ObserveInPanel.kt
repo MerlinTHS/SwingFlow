@@ -1,7 +1,7 @@
-package com.github.merlinths.swing.flow
+package io.mths.swing.flow
 
-import com.github.merlinths.swing.flow.binding.invoke
-import com.github.merlinths.swing.flow.binding.shorthand.binds
+import io.mths.swing.flow.binding.invoke
+import io.mths.swing.flow.binding.shorthand.binds
 import kotlinx.coroutines.flow.*
 import javax.swing.JComponent
 import javax.swing.JPanel

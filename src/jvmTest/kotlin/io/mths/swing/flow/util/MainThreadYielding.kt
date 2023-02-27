@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow.util
+package io.mths.swing.flow.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

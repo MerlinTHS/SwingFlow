@@ -1,7 +1,7 @@
-package com.github.merlinths.swing.flow.binding.shorthand
+package io.mths.swing.flow.binding.shorthand
 
-import com.github.merlinths.swing.flow.lifecycle.Lifecycle
-import com.github.merlinths.swing.flow.swingFlow
+import io.mths.swing.flow.lifecycle.Lifecycle
+import io.mths.swing.flow.swingFlow
 import kotlinx.coroutines.CoroutineScope
 
 fun <Type> Type.binds(

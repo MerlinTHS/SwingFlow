@@ -1,6 +1,6 @@
-package com.github.merlinths.swing.flow
+package io.mths.swing.flow
 
-import com.github.merlinths.swing.flow.lifecycle.Lifecycle
+import io.mths.swing.flow.lifecycle.Lifecycle
 import kotlinx.coroutines.*
 import javax.swing.JComponent
 import kotlin.coroutines.CoroutineContext
@@ -9,8 +9,6 @@ import kotlin.coroutines.CoroutineContext
  * Interface to access lifecycle-bound [CoroutineScope].
  *
  * In the context of a [JComponent] you can configure [bind].
- *
- * @sample[ExampleEditor]
  */
 interface SwingFlow {
     val swingScope: CoroutineScope
@@ -41,5 +39,5 @@ fun <Type> swingFlow(
     init: context (SwingFlow) Type.() -> Unit
 ): Type =
     target.apply {
-        init(object : SwingFlow{}, target)
+        init(object : SwingFlow {}, target)
     }

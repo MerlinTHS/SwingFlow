@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow.binding
+package io.mths.swing.flow.binding
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
