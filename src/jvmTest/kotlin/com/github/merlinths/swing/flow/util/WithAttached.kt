@@ -1,4 +1,4 @@
-package com.github.merlinths.swing.flow
+package com.github.merlinths.swing.flow.util
 
 import javax.swing.JComponent
 import javax.swing.JPanel
