@@ -2,6 +2,8 @@ package com.github.merlinths.swing.flow
 
 import com.github.merlinths.swing.flow.binding.invoke
 import com.github.merlinths.swing.flow.binding.shorthand.binds
+import com.github.merlinths.swing.flow.util.withAttached
+import com.github.merlinths.swing.flow.util.yieldMainThread
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest

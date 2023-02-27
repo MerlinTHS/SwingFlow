@@ -1,5 +1,7 @@
 package com.github.merlinths.swing.flow
 
+import com.github.merlinths.swing.flow.util.withAttached
+import com.github.merlinths.swing.flow.util.yieldMainThread
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
