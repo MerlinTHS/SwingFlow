@@ -1,5 +1,12 @@
 <h1 align="center">SwingFlow</h1>
 
+<div>
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.merlinths/swing-flow?color=blue)]()
+[![Apache license](https://img.shields.io/badge/license-Apache%20License%202.0-red.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+</div>
+
 Makes binding *Kotlin Flows* to *Java Swing* components easier!
 
 To bind a simple ```String``` Flow to the _text_ property of a ```JLabel```
@@ -23,15 +30,16 @@ Calling methods this way, results in a one-directional binding.
 To bind a property ( typically bi-directional ).
 
 ```kotlin
-val greeting = JLabel() binds {
+val header = JLabel() binds {
     ::text { greeting }
 }
 ```
 
-There is also a way to bind the property in a one-directional manner.
+There is also a way to bind the property in a one-directional manner
+( the recommended _Section - Syntax_ ). Currently only ```set``` is supported.
 
 ```kotlin
-val greeting = JLabel() binds {
+val header = JLabel() binds {
     ::text::
     set { greeting }
 }
@@ -40,7 +48,8 @@ val greeting = JLabel() binds {
 You can use all the intermediate flow operations inside these bindings.
 
 ```kotlin
-val countDown = (10 downTo 0)
+val countDown =
+    (10 downTo 0)
     .asFlow()
     .onEach { delay(1000) }
 
@@ -49,6 +58,25 @@ val number = JLabel() binds {
     set {
         countDown.map(Int::toString)
     }
+}
+```
+
+
+As soon as ```get``` is supported, one can do the same in the other direction as well.
+
+```kotlin
+val name = MutableStateFlow("SwingFlow")
+
+val header = JLabel() binds {
+    ::text::
+    set {
+        name.map { "Hello $it!" }
+    }
+}
+
+val yourName = JTextField() binds {
+    ::text::
+    get { name }
 }
 ```
 
