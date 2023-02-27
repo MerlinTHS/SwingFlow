@@ -51,7 +51,6 @@ mavenPublishing {
     }
 }
 
-
 kotlin {
     jvm {
         compilations.all {
@@ -94,12 +93,21 @@ kotlin {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = "SwingFlow"
-            version = project.version.toString()
+        create<MavenPublication>("default") {
+            from(components["kotlin"])
 
-            from(components["java"])
+            pom {
+                name.set("swing-flow")
+                description.set("Kotlin Flow integration for Swing.")
+                url.set("https://github.com/MerlinTHS/SwingFlow")
+
+                developers {
+                    developer {
+                        name.set("Merlin Eden")
+                        url.set("https://github.com/MerlinTHS")
+                    }
+                }
+            }
         }
     }
 }
