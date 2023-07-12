@@ -1,8 +1,8 @@
 <h1 align="center">SwingFlow</h1>
 
-<div>
+<div align="right">
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.merlinths/swing-flow?color=blue)]()
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.merlinths/swing-flow?color=blue)](https://central.sonatype.com/artifact/io.github.merlinths/swing-flow-jvm/1.0.0)
 [![Apache license](https://img.shields.io/badge/license-Apache%20License%202.0-red.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 </div>

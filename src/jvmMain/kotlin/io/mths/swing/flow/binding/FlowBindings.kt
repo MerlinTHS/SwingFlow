@@ -3,7 +3,10 @@ package io.mths.swing.flow.binding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import javax.swing.JTextField
+import javax.swing.event.DocumentListener
 import kotlin.reflect.KFunction1
+import kotlin.reflect.KFunction2
 import kotlin.reflect.KMutableProperty
 
 context (CoroutineScope)
@@ -37,3 +40,20 @@ internal infix fun <Type> KFunction1<Type, Unit>.bindTo(
         .flowOn(Dispatchers.Default)
         .launchIn(this@CoroutineScope)
 }
+
+data class ListenerMapping<Type, EventType, ListenerType>(
+    val registerListener: KFunction1<Type, Unit>,
+    val events: List<KFunction2<ListenerType, EventType, Unit>>
+)
+
+operator fun <Type, EventType, ListenerType> KFunction1<Type, Unit>.get(
+    vararg events: KFunction2<ListenerType, EventType, Unit>
+): ListenerMapping<Type, EventType, ListenerType> {
+    TODO()
+}
+
+operator fun <Type, EventType, ListenerType>
+        ListenerMapping<Type, EventType, ListenerType>.invoke(
+    supplyObservable: (Any) -> Unit
+
+) {}
